@@ -15,27 +15,6 @@ environment = []
 def update():
     #Smooth Follow
     camera.xy = player.xy
-    if player.canMove:
-        if held_keys['w']:
-            player.y += 0.1
-            player.canMove = False
-            after 0.25s:
-                player.canMove = True
-        if held_keys['a']:
-            player.x -= 0.1
-            player.canMove = False
-            after 0.25s:
-                player.canMove = True
-        if held_keys['s']:
-            player.y -= 0.1
-            player.canMove = False
-            after 0.25s:
-                player.canMove = True
-        if held_keys['d']:
-            player.x += 0.1
-            player.canMove = False
-            after 0.25s:
-                player.canMove = True
 
 def input(key):
     for object in environment:
