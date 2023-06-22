@@ -28,8 +28,6 @@
       };
       
       Math.d = function (l,r) { var f = _cf(l,r); return (l * f) / (r * f); };
-
-      console.log(Math.s(.1,.2))
 </script>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
@@ -38,9 +36,11 @@
 set_orientation('horizontal')
 set_window_color('gray')
 set_background_color('black')
+ASSETS_FOLDER='assets/'
 distance_2d = distance
 environment = []
 
+moved=False
 
 
 def update():
@@ -55,43 +55,59 @@ def input(key):
                 if Math.a(player.y, 0.1) == object.y:
                     ;
                 else:
-                    player.y = Math.a(player.y, 0.1)
+                    if not moved:
+                        player.y = Math.a(player.y, 0.1)
+                        moved=True
             else:
-                player.y = Math.a(player.y, 0.1)
+                if not moved:
+                    player.y = Math.a(player.y, 0.1)
+                    moved=True
+        moved=False
     if key == 'a':
         for object in environment:
             if Math.s(player.x, 0.1) == object.x:
                 if player.y == object.y:
                     ;
                 else:
-                    player.x = Math.s(player.x, 0.1)
+                    if not moved:
+                        player.x = Math.s(player.x, 0.1)
+                        moved=True
             else:
-                player.x = Math.s(player.x, 0.1)
-                
+                if not moved:
+                    player.x = Math.s(player.x, 0.1)
+                    moved=True
+        moved=False
     if key == 's':
         for object in environment:
             if player.x == object.x:
                 if Math.s(player.y, 0.1) == object.y:
                     ;
                 else:
-                    player.y = Math.s(player.y, 0.1)
+                    if not moved:
+                        player.y = Math.s(player.y, 0.1)
+                        moved=True
             else:
-                player.y = Math.s(player.y, 0.1)
+                if not moved:
+                    player.y = Math.s(player.y, 0.1)
+                    moved=True
+        moved=False
     if key == 'd':
         for object in environment:
             if Math.a(player.x, 0.1) == object.x:
                 if player.y == object.y:
                     ;
                 else:
-                    player.x = Math.a(player.x, 0.1)
+                    if not moved:
+                        player.x = Math.a(player.x, 0.1)
+                        moved=True
             else:
-                player.x = Math.a(player.x, 0.1)
-
+                if not moved:
+                    player.x = Math.a(player.x, 0.1)
+                    moved=True
+        moved=False
 player = Entity(scale=.1,speed=0.1,canMove=False)
 box = Entity(scale=.1,x=.1,y=.1, color=color.blue)
 environment.append(box)
-
-
 
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>
