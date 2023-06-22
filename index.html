@@ -1,5 +1,5 @@
 <html>
-    <title>Index</title>
+    <title>Dungeon Taptapir</title>
 <body>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
@@ -8,14 +8,65 @@
 set_orientation('horizontal')
 set_window_color('gray')
 set_background_color('black')
+distance_2d = distance
+environment = []
 
 
+def update():
+    #Smooth Follow
+    camera.xy = player.xy
+    if player.canMove:
+        if held_keys['w']:
+            player.y += 0.1
+            player.canMove = False
+            after 0.25s:
+                player.canMove = True
+        if held_keys['a']:
+            player.x -= 0.1
+            player.canMove = False
+            after 0.25s:
+                player.canMove = True
+        if held_keys['s']:
+            player.y -= 0.1
+            player.canMove = False
+            after 0.25s:
+                player.canMove = True
+        if held_keys['d']:
+            player.x += 0.1
+            player.canMove = False
+            after 0.25s:
+                player.canMove = True
 
-circ = Entity(scale=.1,roundness=1)
+def input(key):
+    for object in environment:
+        if key == 'w':
+            if (player.y+0.1) == box.y and player.x == box.x:
+                pass
+            else:
+                player.y += 0.1
+        if key == 'a':
+            if (player.x-0.1) == box.x and player.y == box.y:
+                pass
+            else:
+                player.x -= 0.1
+        if key == 's':
+            if (player.y-0.1) == box.y and player.x == box.x:
+                pass
+            else:
+                player.y -= 0.1
+        if key == 'd':
+            if (player.x-0.1) == box.x and player.y == box.y:
+                pass
+            else:
+                player.x += 0.1
+
+player = Entity(scale=.1,speed=0.1,canMove=False)
+box = Entity(scale=.1,x=.1,y=.1, color=color.blue)
+environment.append(box)
 
 
 
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>
 </body>
-</html>    
+</html>
