@@ -1,6 +1,36 @@
 <html>
     <title>Dungeon Taptapir</title>
 <body>
+<script>
+    //To deal with floating point numbers
+    var _cf = (function() {
+        function _shift(x) {
+          var parts = x.toString().split('.');
+          return (parts.length < 2) ? 1 : Math.pow(10, parts[1].length);
+        }
+        return function() { 
+          return Array.prototype.reduce.call(arguments, function (prev, next) { return prev === undefined || next === undefined ? undefined : Math.max(prev, _shift (next)); }, -Infinity);
+        };
+      })();
+      
+      Math.a = function () {
+        var f = _cf.apply(null, arguments); if(f === undefined) return undefined;
+        function cb(x, y, i, o) { return x + f * y; }
+        return Array.prototype.reduce.call(arguments, cb, 0) / f;
+      };
+      
+      Math.s = function (l,r) { var f = _cf(l,r); return (l * f - r * f) / f; };
+      
+      Math.m = function () {
+        var f = _cf.apply(null, arguments);
+        function cb(x, y, i, o) { return (x*f) * (y*f) / (f * f); }
+        return Array.prototype.reduce.call(arguments, cb, 1);
+      };
+      
+      Math.d = function (l,r) { var f = _cf(l,r); return (l * f) / (r * f); };
+
+      console.log(Math.s(.1,.2))
+</script>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
 
@@ -12,6 +42,7 @@ distance_2d = distance
 environment = []
 
 
+
 def update():
     #Smooth Follow
     camera.xy = player.xy
@@ -20,32 +51,41 @@ def input(key):
     #Collision Detection
     if key == 'w':
         for object in environment:
-            if (player.y+0.1) == object.y:
-                if player.x != object.x:
-                    player.y += 0.1
+            if player.x == object.x:
+                if Math.a(player.y, 0.1) == object.y:
+                    ;
+                else:
+                    player.y = Math.a(player.y, 0.1)
             else:
-                player.y += 0.1
+                player.y = Math.a(player.y, 0.1)
     if key == 'a':
         for object in environment:
-            if (player.x-0.1) == object.x:
-                if player.y != object.y:
-                    player.x -= 0.1
+            if Math.s(player.x, 0.1) == object.x:
+                if player.y == object.y:
+                    ;
+                else:
+                    player.x = Math.s(player.x, 0.1)
             else:
-                player.x -= 0.1
+                player.x = Math.s(player.x, 0.1)
+                
     if key == 's':
         for object in environment:
-            if (player.y-0.1) == object.y:
-                if player.x != object.x:
-                    player.y -= 0.1
+            if player.x == object.x:
+                if Math.s(player.y, 0.1) == object.y:
+                    ;
+                else:
+                    player.y = Math.s(player.y, 0.1)
             else:
-                player.y -= 0.1
+                player.y = Math.s(player.y, 0.1)
     if key == 'd':
         for object in environment:
-            if (player.x+0.1) == object.x:
-                if player.y != object.y:
-                    player.x += 0.1
+            if Math.a(player.x, 0.1) == object.x:
+                if player.y == object.y:
+                    ;
+                else:
+                    player.x = Math.a(player.x, 0.1)
             else:
-                player.x += 0.1
+                player.x = Math.a(player.x, 0.1)
 
 player = Entity(scale=.1,speed=0.1,canMove=False)
 box = Entity(scale=.1,x=.1,y=.1, color=color.blue)
