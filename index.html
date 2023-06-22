@@ -28,7 +28,14 @@
       };
       
       Math.d = function (l,r) { var f = _cf(l,r); return (l * f) / (r * f); };
-</script>
+      function moveItemToBeginning(arr, item) {
+        const index = arr.indexOf(item);
+        if (index !== -1) {
+          arr.splice(index, 1);
+          arr.unshift(item);
+        }
+      }
+    </script>
     <script src="taptapir/taptapir.js"></script>
 <script type="text/sunsnake">
 
@@ -37,37 +44,62 @@ set_orientation('horizontal')
 set_window_color('gray')
 set_background_color('black')
 ASSETS_FOLDER='assets/'
-distance_2d = distance
 environment = []
 
 moved=False
-
+inrange=False
 
 def update():
     #Smooth Follow
     camera.xy = player.xy
 
 def input(key):
-    #Collision Detection
+    # Collision Detection
     if key == 'w':
         for object in environment:
-            if player.x == object.x:
-                if Math.a(player.y, 0.1) == object.y:
-                    ;
+            if Math.a(player.y, 0.1) == object.y:
+                dist=distance(player.xy,object.xy)
+                if dist <= .10000000000000003:
+                    moveItemToBeginning(environment, object);
+            else:
+                ;
+        for object in environment:
+            dist=distance(player.xy,object.xy)
+            if dist <= .10000000000000003:
+                if player.x == object.x:
+                    if Math.a(player.y, 0.1) == object.y:
+                        break
+                    else:
+                        if not moved:
+                            player.y = Math.a(player.y, 0.1)
+                            moved = True
                 else:
                     if not moved:
                         player.y = Math.a(player.y, 0.1)
-                        moved=True
+                        moved = True
             else:
                 if not moved:
                     player.y = Math.a(player.y, 0.1)
-                    moved=True
-        moved=False
+                    moved = True
+        moved = False
     if key == 'a':
         for object in environment:
             if Math.s(player.x, 0.1) == object.x:
-                if player.y == object.y:
-                    ;
+                dist=distance(player.xy,object.xy)
+                if dist <= .10000000000000003:
+                    moveItemToBeginning(environment, object);
+            else:
+                ;
+        for object in environment:
+            dist=distance(player.xy,object.xy)
+            if dist <= .10000000000000003:
+                if Math.s(player.x, 0.1) == object.x:
+                    if player.y == object.y:
+                        break
+                    else:
+                        if not moved:
+                            player.x = Math.s(player.x, 0.1)
+                            moved=True
                 else:
                     if not moved:
                         player.x = Math.s(player.x, 0.1)
@@ -79,9 +111,22 @@ def input(key):
         moved=False
     if key == 's':
         for object in environment:
-            if player.x == object.x:
-                if Math.s(player.y, 0.1) == object.y:
-                    ;
+            if Math.s(player.y, 0.1) == object.y:
+                dist=distance(player.xy,object.xy)
+                if dist <= .10000000000000003:
+                    moveItemToBeginning(environment, object);
+            else:
+                ;
+        for object in environment:
+            dist=distance(player.xy,object.xy)
+            if dist <= .10000000000000003:
+                if player.x == object.x:
+                    if Math.s(player.y, 0.1) == object.y:
+                        break
+                    else:
+                        if not moved:
+                            player.y = Math.s(player.y, 0.1)
+                            moved=True
                 else:
                     if not moved:
                         player.y = Math.s(player.y, 0.1)
@@ -94,8 +139,21 @@ def input(key):
     if key == 'd':
         for object in environment:
             if Math.a(player.x, 0.1) == object.x:
-                if player.y == object.y:
-                    ;
+                dist=distance(player.xy,object.xy)
+                if dist <= .10000000000000003:
+                    moveItemToBeginning(environment, object);
+            else:
+                ;
+        for object in environment:
+            dist=distance(player.xy,object.xy)
+            if dist <= .10000000000000003:
+                if Math.a(player.x, 0.1) == object.x:
+                    if player.y == object.y:
+                        break
+                    else:
+                        if not moved:
+                            player.x = Math.a(player.x, 0.1)
+                            moved=True
                 else:
                     if not moved:
                         player.x = Math.a(player.x, 0.1)
@@ -105,10 +163,49 @@ def input(key):
                     player.x = Math.a(player.x, 0.1)
                     moved=True
         moved=False
-player = Entity(scale=.1,speed=0.1,canMove=False)
-box = Entity(scale=.1,x=.1,y=.1, color=color.blue)
-environment.append(box)
+player = Entity(scale=.1,x=.1,y=.2,speed=0.1,canMove=False)
 
+box1 = Entity(scale=.1,x=.1,y=.1, color=color.blue)
+environment.append(box1)
+
+box2 = Entity(scale=.1,x=.3,y=.2, color=color.blue)
+environment.append(box2)
+
+box3 = Entity(scale=.1,x=.2,y=.1, color=color.blue)
+environment.append(box3)
+
+box4 = Entity(scale=.1,x=.4,y=.1, color=color.blue)
+environment.append(box4)
+
+box5 = Entity(scale=.1,x=.1,y=.3, color=color.blue)
+environment.append(box5)
+
+box6 = Entity(scale=.1,x=.2,y=.4, color=color.blue)
+environment.append(box6)
+
+box7 = Entity(scale=.1,x=.3,y=.4, color=color.blue)
+environment.append(box7)
+
+box8 = Entity(scale=.1,x=.4,y=.4, color=color.blue)
+environment.append(box8)
+
+box9 = Entity(scale=.1,x=.5,y=.3, color=color.blue)
+environment.append(box9)
+
+box10 = Entity(scale=.1,x=0,y=.2, color=color.blue)
+environment.append(box10)
+
+box9 = Entity(scale=.1,x=.6,y=.3, color=color.blue)
+environment.append(box9)
+
+box9 = Entity(scale=.1,x=.5,y=.1, color=color.blue)
+environment.append(box9)
+
+box9 = Entity(scale=.1,x=.6,y=.1, color=color.blue)
+environment.append(box9)
+
+box9 = Entity(scale=.1,x=.7,y=.2, color=color.blue)
+environment.append(box9)
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>
 </body>
