@@ -17,25 +17,33 @@ def update():
     camera.xy = player.xy
 
 def input(key):
-    for object in environment:
-        if key == 'w':
-            if (player.y+0.1) == box.y and player.x == box.x:
-                pass
+    #Collision Detection
+    if key == 'w':
+        for object in environment:
+            if (player.y+0.1) == object.y:
+                if player.x != object.x:
+                    player.y += 0.1
             else:
                 player.y += 0.1
-        if key == 'a':
-            if (player.x-0.1) == box.x and player.y == box.y:
-                pass
+    if key == 'a':
+        for object in environment:
+            if (player.x-0.1) == object.x:
+                if player.y != object.y:
+                    player.x -= 0.1
             else:
                 player.x -= 0.1
-        if key == 's':
-            if (player.y-0.1) == box.y and player.x == box.x:
-                pass
+    if key == 's':
+        for object in environment:
+            if (player.y-0.1) == object.y:
+                if player.x != object.x:
+                    player.y -= 0.1
             else:
                 player.y -= 0.1
-        if key == 'd':
-            if (player.x-0.1) == box.x and player.y == box.y:
-                pass
+    if key == 'd':
+        for object in environment:
+            if (player.x+0.1) == object.x:
+                if player.y != object.y:
+                    player.x += 0.1
             else:
                 player.x += 0.1
 
