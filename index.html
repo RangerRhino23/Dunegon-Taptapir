@@ -83,6 +83,7 @@ def input(key):
                     moved = True
         moved = False
     if key == 'a':
+        player.texture = 'player_left.png'
         for object in environment:
             if Math.s(player.x, 0.1) == object.x:
                 dist=distance(player.xy,object.xy)
@@ -137,6 +138,7 @@ def input(key):
                     moved=True
         moved=False
     if key == 'd':
+        player.texture = 'player_right.png'
         for object in environment:
             if Math.a(player.x, 0.1) == object.x:
                 dist=distance(player.xy,object.xy)
@@ -163,48 +165,48 @@ def input(key):
                     player.x = Math.a(player.x, 0.1)
                     moved=True
         moved=False
-player = Entity(scale=.1,x=.1,y=.2,speed=0.1,canMove=False)
+player = Entity(scale=.1,x=.1,y=.2,speed=0.1,canMove=False, texture='player_left.png')
 
-box1 = Entity(scale=.1,x=.1,y=.1, color=color.blue)
+box1 = Entity(scale=.1,x=.1,y=.1, texture='brick.png')
 environment.append(box1)
 
-box2 = Entity(scale=.1,x=.3,y=.2, color=color.blue)
+box2 = Entity(scale=.1,x=.3,y=.2, texture='brick.png')
 environment.append(box2)
 
-box3 = Entity(scale=.1,x=.2,y=.1, color=color.blue)
+box3 = Entity(scale=.1,x=.2,y=.1, texture='brick.png')
 environment.append(box3)
 
-box4 = Entity(scale=.1,x=.4,y=.1, color=color.blue)
+box4 = Entity(scale=.1,x=.4,y=.1, texture='brick.png')
 environment.append(box4)
 
-box5 = Entity(scale=.1,x=.1,y=.3, color=color.blue)
+box5 = Entity(scale=.1,x=.1,y=.3, texture='brick.png')
 environment.append(box5)
 
-box6 = Entity(scale=.1,x=.2,y=.4, color=color.blue)
+box6 = Entity(scale=.1,x=.2,y=.4, texture='brick.png')
 environment.append(box6)
 
-box7 = Entity(scale=.1,x=.3,y=.4, color=color.blue)
+box7 = Entity(scale=.1,x=.3,y=.4, texture='brick.png')
 environment.append(box7)
 
-box8 = Entity(scale=.1,x=.4,y=.4, color=color.blue)
+box8 = Entity(scale=.1,x=.4,y=.4, texture='brick.png')
 environment.append(box8)
 
-box9 = Entity(scale=.1,x=.5,y=.3, color=color.blue)
+box9 = Entity(scale=.1,x=.5,y=.3, texture='brick.png')
 environment.append(box9)
 
-box10 = Entity(scale=.1,x=0,y=.2, color=color.blue)
+box10 = Entity(scale=.1,x=0,y=.2, texture='brick.png')
 environment.append(box10)
 
-box9 = Entity(scale=.1,x=.6,y=.3, color=color.blue)
+box9 = Entity(scale=.1,x=.6,y=.3, texture='brick.png')
 environment.append(box9)
 
-box9 = Entity(scale=.1,x=.5,y=.1, color=color.blue)
+box9 = Entity(scale=.1,x=.5,y=.1, texture='brick.png')
 environment.append(box9)
 
-box9 = Entity(scale=.1,x=.6,y=.1, color=color.blue)
+box9 = Entity(scale=.1,x=.6,y=.1, texture='brick.png')
 environment.append(box9)
 
-box9 = Entity(scale=.1,x=.7,y=.2, color=color.blue)
+box9 = Entity(scale=.1,x=.7,y=.2, texture='brick.png')
 environment.append(box9)
 </script>
 <script src="taptapir/sunsnake_compiler.js"></script>
