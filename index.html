@@ -44,7 +44,6 @@ set_orientation('horizontal')
 set_window_color('gray')
 set_background_color('black')
 ASSETS_FOLDER='assets/'
-environment = []
 
 moved=False
 inrange=False
@@ -167,34 +166,51 @@ def input(key):
         moved=False
 player = Entity(scale=.1,x=0,y=0,speed=0.1,canMove=False, texture='player_left.png')
 
-def Box(x,y):
-    box = Entity(scale=.1,x=x,y=y, texture='brick.png')
+#Lists
+environment = []
+
+def Box(x,y,texture='brick.png'):
+    box = Entity(scale=.1,x=x,y=y, texture=texture)
     environment.append(box)
 
-def Open(x,y,direction):
-    opening = Entity(scale=0,x=x,y=y,direction=direction)
-    if opening.direction == 'left':
-        opening.length = random_int(2,5)
-        for i in range(opening.length):
-            Box(Math.a(opening.x, (i/10)),Math.a(opening.y, 0.1))
-            Box(Math.a(opening.x, (i/10)),Math.a(opening.y, -0.1))
+
+minHallwayLength = 2
+maxHallwayLength = 10
+def Hallway(x,y,direction):
+    hallway = Entity(scale=0,x=x,y=y,direction=direction,length=random_int(minHallwayLength,maxHallwayLength))
+    if hallway.direction == 'left':
+        for i in range(hallway.length):
+            Box(Math.a(hallway.x, (i/10)),Math.a(hallway.y, 0.1))
+            Box(Math.a(hallway.x, (i/10)),Math.a(hallway.y, -0.1))
+    if hallway.direction == 'right':
+        for i in range(hallway.length):
+            Box(Math.a(hallway.x, -(i/10)),Math.a(hallway.y, 0.1))
+            Box(Math.a(hallway.x, -(i/10)),Math.a(hallway.y, -0.1))
+    if hallway.direction == 'up':
+        for i in range(hallway.length):
+            Box(Math.a(hallway.x, 0.1),Math.a(hallway.y, (i/10)))
+            Box(Math.a(hallway.x, -0.1),Math.a(hallway.y, (i/10)))
+    if hallway.direction == 'down':
+        for i in range(hallway.length):
+            Box(Math.a(hallway.x, 0.1),Math.a(hallway.y, -(i/10)))
+            Box(Math.a(hallway.x, -0.1),Math.a(hallway.y, -(i/10)))
 
 
     
 Box(-.1,-.2)
 Box(0,-.2)
-Box(.1,-.2)
+Hallway(.1,-.2,'down')
 Box(.2,-.2)
 Box(.2,-.1)
 Box(.2,0)
-Open(.2,.1,'left')
+Hallway(.2,.1,'left')
 Box(.2,.2)
 Box(.2,.3)
-Box(-.1,.3)
+Hallway(-.1,.3,'up')
 Box(0,.3)
 Box(.1,.3)
 Box(-.2,-.2)
-Box(-.2,-.1)
+Hallway(-.2,-.1,'right')
 Box(-.2,0)
 Box(-.2,.1)
 Box(-.2,.2)
