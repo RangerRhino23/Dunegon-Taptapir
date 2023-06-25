@@ -28,6 +28,7 @@
       };
       
       Math.d = function (l,r) { var f = _cf(l,r); return (l * f) / (r * f); };
+      // To deal with collision detection
       function moveItemToBeginning(arr, item) {
         const index = arr.indexOf(item);
         if (index !== -1) {
@@ -37,6 +38,7 @@
       }
     </script>
     <script src="taptapir/taptapir.js"></script>
+    <script src="taptapir/taptapir_gamepad.js"></script>
 <script type="text/sunsnake">
 
 #Global Functions
@@ -46,15 +48,15 @@ set_background_color('black')
 ASSETS_FOLDER='assets/'
 
 moved=False
-inrange=False
 
 def update():
     #Smooth Follow
-    camera.xy = player.xy
+    camera.x = lerp(camera.x, player.x, .025)
+    camera.y = lerp(camera.y, player.y, .025)
 
 def input(key):
     # Collision Detection
-    if key == 'w':
+    if key == 'w' or key == 'gamepad dpad up':
         for object in environment:
             if Math.a(player.y, 0.1) == object.y:
                 dist=distance(player.xy,object.xy)
@@ -81,7 +83,7 @@ def input(key):
                     player.y = Math.a(player.y, 0.1)
                     moved = True
         moved = False
-    if key == 'a':
+    if key == 'a' or key == 'gamepad dpad left':
         player.texture = 'player_left.png'
         for object in environment:
             if Math.s(player.x, 0.1) == object.x:
@@ -109,7 +111,7 @@ def input(key):
                     player.x = Math.s(player.x, 0.1)
                     moved=True
         moved=False
-    if key == 's':
+    if key == 's' or key == 'gamepad dpad down':
         for object in environment:
             if Math.s(player.y, 0.1) == object.y:
                 dist=distance(player.xy,object.xy)
@@ -136,7 +138,7 @@ def input(key):
                     player.y = Math.s(player.y, 0.1)
                     moved=True
         moved=False
-    if key == 'd':
+    if key == 'd' or key == 'gamepad dpad right':
         player.texture = 'player_right.png'
         for object in environment:
             if Math.a(player.x, 0.1) == object.x:
