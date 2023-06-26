@@ -48,12 +48,144 @@ set_background_color('black')
 ASSETS_FOLDER='assets/'
 
 moved=False
+movedRight=False
+movedLeft=False
+movedUp=False
+movedDown=False
+
 
 def update():
     #Smooth Follow
     camera.x = lerp(camera.x, player.x, .025)
     camera.y = lerp(camera.y, player.y, .025)
 
+    #Controller input
+    #D
+    if held_keys['gamepad left stick x'] >= 0.7 and not movedRight:
+        movedRight=True
+        player.texture = 'player_right.png'
+        for object in environment:
+            if Math.a(player.x, 0.1) == object.x:
+                dist=distance(player.xy,object.xy)
+                if dist <= .10000000000000003:
+                    moveItemToBeginning(environment, object);
+            else:
+                ;
+        for object in environment:
+            dist=distance(player.xy,object.xy)
+            if dist <= .10000000000000003:
+                if Math.a(player.x, 0.1) == object.x:
+                    if player.y == object.y:
+                        break
+                    else:
+                        if not moved:
+                            player.x = Math.a(player.x, 0.1)
+                            moved=True
+                else:
+                    if not moved:
+                        player.x = Math.a(player.x, 0.1)
+                        moved=True
+            else:
+                if not moved:
+                    player.x = Math.a(player.x, 0.1)
+                    moved=True
+        moved=False
+    elif held_keys['gamepad left stick x'] <=0.5:
+        movedRight=False
+    #A
+    if held_keys['gamepad left stick x'] <= -0.7 and not movedLeft:
+        movedLeft=True
+        player.texture = 'player_left.png'
+        for object in environment:
+            if Math.s(player.x, 0.1) == object.x:
+                dist=distance(player.xy,object.xy)
+                if dist <= .10000000000000003:
+                    moveItemToBeginning(environment, object);
+            else:
+                ;
+        for object in environment:
+            dist=distance(player.xy,object.xy)
+            if dist <= .10000000000000003:
+                if Math.s(player.x, 0.1) == object.x:
+                    if player.y == object.y:
+                        break
+                    else:
+                        if not moved:
+                            player.x = Math.s(player.x, 0.1)
+                            moved=True
+                else:
+                    if not moved:
+                        player.x = Math.s(player.x, 0.1)
+                        moved=True
+            else:
+                if not moved:
+                    player.x = Math.s(player.x, 0.1)
+                    moved=True
+        moved=False
+    elif held_keys['gamepad left stick x'] >= -0.5:
+        movedLeft=False
+    #W
+    if held_keys['gamepad left stick y'] >= 0.7 and not movedUp:
+        movedUp=True
+        for object in environment:
+        if Math.a(player.y, 0.1) == object.y:
+            dist=distance(player.xy,object.xy)
+            if dist <= .10000000000000003:
+                moveItemToBeginning(environment, object);
+        else:
+            ;
+        for object in environment:
+            dist=distance(player.xy,object.xy)
+            if dist <= .10000000000000003:
+                if player.x == object.x:
+                    if Math.a(player.y, 0.1) == object.y:
+                        break
+                    else:
+                        if not moved:
+                            player.y = Math.a(player.y, 0.1)
+                            moved = True
+                else:
+                    if not moved:
+                        player.y = Math.a(player.y, 0.1)
+                        moved = True
+            else:
+                if not moved:
+                    player.y = Math.a(player.y, 0.1)
+                    moved = True
+        moved = False
+    elif held_keys['gamepad left stick y'] <= 0.5:
+        movedUp=False
+    #S
+    if held_keys['gamepad left stick y'] <=-.7 and not movedDown:
+        movedDown=True
+        for object in environment:
+            if Math.s(player.y, 0.1) == object.y:
+                dist=distance(player.xy,object.xy)
+                if dist <= .10000000000000003:
+                    moveItemToBeginning(environment, object);
+            else:
+                ;
+        for object in environment:
+            dist=distance(player.xy,object.xy)
+            if dist <= .10000000000000003:
+                if player.x == object.x:
+                    if Math.s(player.y, 0.1) == object.y:
+                        break
+                    else:
+                        if not moved:
+                            player.y = Math.s(player.y, 0.1)
+                            moved=True
+                else:
+                    if not moved:
+                        player.y = Math.s(player.y, 0.1)
+                        moved=True
+            else:
+                if not moved:
+                    player.y = Math.s(player.y, 0.1)
+                    moved=True
+        moved=False
+    elif held_keys['gamepad left stick y'] >= -0.5:
+        movedDown=False
 def input(key):
     # Collision Detection
     if key == 'w' or key == 'gamepad dpad up':
