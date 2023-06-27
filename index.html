@@ -36,6 +36,7 @@
           arr.unshift(item);
         }
       }
+
     </script>
     <script src="taptapir/taptapir.js"></script>
     <script src="taptapir/taptapir_gamepad.js"></script>
@@ -52,7 +53,6 @@ movedRight=False
 movedLeft=False
 movedUp=False
 movedDown=False
-
 
 def update():
     #Smooth Follow
@@ -126,6 +126,7 @@ def update():
         movedLeft=False
     #W
     if held_keys['gamepad left stick y'] >= 0.7 and not movedUp:
+        player.texture = 'player_up.png'
         movedUp=True
         for object in environment:
         if Math.a(player.y, 0.1) == object.y:
@@ -157,6 +158,7 @@ def update():
         movedUp=False
     #S
     if held_keys['gamepad left stick y'] <=-.7 and not movedDown:
+        player.texture = 'player_down.png'
         movedDown=True
         for object in environment:
             if Math.s(player.y, 0.1) == object.y:
@@ -188,7 +190,8 @@ def update():
         movedDown=False
 def input(key):
     # Collision Detection
-    if key == 'w' or key == 'gamepad dpad up':
+    if key == 'w' or key == 'gamepad dpad up' or key=='up arrow':
+        player.texture = 'player_up.png'
         for object in environment:
             if Math.a(player.y, 0.1) == object.y:
                 dist=distance(player.xy,object.xy)
@@ -215,7 +218,7 @@ def input(key):
                     player.y = Math.a(player.y, 0.1)
                     moved = True
         moved = False
-    if key == 'a' or key == 'gamepad dpad left':
+    if key == 'a' or key == 'gamepad dpad left' or key=='left arrow':
         player.texture = 'player_left.png'
         for object in environment:
             if Math.s(player.x, 0.1) == object.x:
@@ -243,7 +246,8 @@ def input(key):
                     player.x = Math.s(player.x, 0.1)
                     moved=True
         moved=False
-    if key == 's' or key == 'gamepad dpad down':
+    if key == 's' or key == 'gamepad dpad down' or key=='down arrow':
+        player.texture = 'player_down.png'
         for object in environment:
             if Math.s(player.y, 0.1) == object.y:
                 dist=distance(player.xy,object.xy)
@@ -270,7 +274,7 @@ def input(key):
                     player.y = Math.s(player.y, 0.1)
                     moved=True
         moved=False
-    if key == 'd' or key == 'gamepad dpad right':
+    if key == 'd' or key == 'gamepad dpad right' or key=='right arrow':
         player.texture = 'player_right.png'
         for object in environment:
             if Math.a(player.x, 0.1) == object.x:
