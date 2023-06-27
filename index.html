@@ -308,6 +308,24 @@ def Box(x,y,texture='brick.png'):
     environment.append(box)
 
 
+minRoomLength = 5
+maxRoomLength = 10
+def Room(x,y,direction):
+    room = Entity(scale=0,x=x,y=y,direction=direction,length=random_int(minRoomLength,maxRoomLength),height=random_int(3,5))
+    if room.direction == 'right':
+        for i in range(room.length):
+            if i == room.length-1:
+                for x in range(room.height):
+                    if Math.a(room.y, -0.1) != (x/10):
+                        Box(Math.a(room.x, 0),Math.a(room.y, (x/10)))
+                    if random_int(0,10) == 10:
+                        Hallway(Math.a(room.x, (room.length/10)-0.1),Math.a(room.y, (x/10)), 'right')
+                    else:
+                        Box(Math.a(room.x, (room.length/10)-0.1),Math.a(room.y, (x/10)))
+            Box(Math.a(room.x, (i/10)),Math.a(room.y, -0.1))
+            Box(Math.a(room.x, (i/10)),Math.a(room.y, (room.height/10)))
+
+
 minHallwayLength = 2
 maxHallwayLength = 10
 def Hallway(x,y,direction):
@@ -315,7 +333,7 @@ def Hallway(x,y,direction):
     if hallway.direction == 'right':
         for i in range(hallway.length):
             if i == hallway.length-1:
-                roomOpening = Entity(scale=.1,x=Math.a(hallway.x, (i/10)),y=Math.a(hallway.y, 0))
+                Room(Math.a(hallway.x, (i/10)),Math.a(hallway.y, 0),'right')
             Box(Math.a(hallway.x, (i/10)),Math.a(hallway.y, 0.1))
             Box(Math.a(hallway.x, (i/10)),Math.a(hallway.y, -0.1))
     if hallway.direction == 'left':
